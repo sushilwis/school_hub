@@ -86,8 +86,9 @@ class UserController extends Controller
 
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent(), true);
-            $login = User::where(['username' => $data['username'],'is_deleted'=> 0])->get();
-
+            $login = User::with('UserType')
+                            ->where(['users.username' => $data['username'],'users.is_deleted'=> 0])
+                            ->get();
             return UserResource::collection($login);
         }else{
 
