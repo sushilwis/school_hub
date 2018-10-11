@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Http\Resources\User as  UserResource;
+use Response;
 
+use App\User;
+use App\StudentMaster;
+
+use App\Http\Resources\User as  UserResource;
 
 class UserController extends Controller
 {
@@ -86,12 +89,44 @@ class UserController extends Controller
 
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent(), true);
-            $login = User::with('UserType')
-                            ->where(['users.username' => $data['username'],'users.is_deleted'=> 0])
+            if(isset($data['username'])){
+                $login = User::where(['users.username' => $data['username'],'users.is_deleted'=> 0])
                             ->get();
-            return UserResource::collection($login);
+            }else{
+                return Response::json(array('Error'=>"Parameter Missing"));
+            }          
+
         }else{
 
+        }
+        return UserResource::collection($login);
+    }
+
+    public function afterLoginDetails()
+    {
+        # code...
+        if ($request->isMethod('post')) {
+            $data = json_decode($request->getContent(), true);
+            if (isset($data['master_id']) && isset($data['user_type_id'])) {
+                # code...
+                if ($data['user_type_id'] == 1) {
+                    # code...
+                    $masterInfo = StudentMaster::with('OrgMaster')
+                    ->where(['StudentMaster.id' => $data['master_id'],'StudentMaster.is_deleted'=> 0])
+                    ->get();
+                }elseif ($data['user_type_id'] == 2) {
+                    # code...
+                   
+                }elseif ($data['user_type_id'] == 3) {
+                    # code...
+                }else {
+                    # code...
+                }
+            }else{
+                return Response::json(array('Error'=>"Parameter Missing"));
+            }
+            
+            return UserResource::collection($masterInfo);
         }
     }
 }

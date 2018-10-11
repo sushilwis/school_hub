@@ -11,4 +11,9 @@ class User extends Model
     {
         return $this->belongsTo('App\UserType', 'user_type_id');
     }
+    public function studentmaster()
+    {
+        # code...
+        return $this->belongsTo('App\StudentMaster','master_id');
+    }
 }
