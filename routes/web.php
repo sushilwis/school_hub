@@ -14,5 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('users', 'UserController@index' );
 Route::post('user/login', 'UserController@login' );
+Route::post('user/afterlogin', 'UserController@afterLoginDetails' );
+Route::post('role/permissions', 'RolePermissionController@loginRole' );
+Route::post('user/add', 'UserController@addUser' );

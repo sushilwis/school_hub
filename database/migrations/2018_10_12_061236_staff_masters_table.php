@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrgParentsTable extends Migration
+class StaffMastersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,21 @@ class CreateOrgParentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('org_parents', function (Blueprint $table) {
+        Schema::create('staff_masters', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('user_name',255);
+            $table->integer('org_id');
             $table->string('f_name',50);
             $table->string('l_name',50);
-            $table->string('name',150);
-            $table->string('mobile_no',50);
+            $table->string('name',255);
             $table->text('address');
-            $table->integer('p_city');
-            $table->integer('p_state');
-            $table->integer('p_country');
-            $table->integer('p_postal_code');
-
+            $table->integer('std_city');
+            $table->integer('std_state');
+            $table->integer('std_country');
+            $table->integer('std_postal_code');
             $table->timestamps();
-            $table->tinyInteger('is_deleted')->default('0');
+            $table->tinyInteger('is_deleted')->default(0);
+
         });
     }
 
@@ -37,6 +38,6 @@ class CreateOrgParentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('org_parents');
+        Schema::dropIfExists('staff_masters');
     }
 }

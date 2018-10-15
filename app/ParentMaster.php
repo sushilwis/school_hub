@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrgParent extends Model
+class ParentMaster extends Model
 {
     //
 }

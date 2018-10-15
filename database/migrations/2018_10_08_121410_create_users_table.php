@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('user_type_id');
             $table->integer('dept_id');
             $table->integer('master_id');
-            $table->integer('status');
+            $table->integer('status')->default('0');
             $table->timestamps();
             $table->tinyInteger('is_deleted')->default('0');
         });
